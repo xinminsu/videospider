@@ -21,6 +21,9 @@ import imageio
 #imageio.plugins.ffmpeg.download()
 
 class bilibili():
+    def __init__(self):
+        self.start_time = time.time()
+
     # 访问API地址
     def get_play_list(self,start_url, cid, quality):
         entropy = 'rbMCKn@KuamXWlPMoJGsKcbiJKUfkPF_8dABscJntvqhRSETg'
@@ -53,7 +56,7 @@ class bilibili():
 
 
     def Schedule_cmd(self,blocknum, blocksize, totalsize):
-        speed = (blocknum * blocksize) / (time.time() - start_time)
+        speed = (blocknum * blocksize) / (time.time() - self.start_time)
         # speed_str = " Speed: %.2f" % speed
         speed_str = " Speed: %s" % self.format_size(speed)
         recv_size = blocknum * blocksize
@@ -71,7 +74,7 @@ class bilibili():
 
 
     def Schedule(self,blocknum, blocksize, totalsize):
-        speed = (blocknum * blocksize) / (time.time() - start_time)
+        speed = (blocknum * blocksize) / (time.time() - self.start_time)
         # speed_str = " Speed: %.2f" % speed
         speed_str = " Speed: %s" % self.format_size(speed)
         recv_size = blocknum * blocksize
