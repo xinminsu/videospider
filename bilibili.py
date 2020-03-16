@@ -144,7 +144,7 @@ class bilibili():
 
     # 合并视频(20190802新版)
     def combine_video(self,title_list):
-        video_path = os.path.join(sys.path[0], 'bilibili_video')  # 下载目录
+        video_path = os.path.join(sys.path[0], 'video')  # 下载目录
         for title in title_list:
             current_video_path = os.path.join(video_path ,title)
             if len(os.listdir(current_video_path)) >= 2:

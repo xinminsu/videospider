@@ -139,7 +139,7 @@ class spider():
 
         pbar = tqdm(total=file_size, initial=first_byte, unit='B', unit_scale=True, desc=dst)
         req = requests.get(url, headers=header, stream=True)
-        currentVideoPath = os.path.join(sys.path[0], 'bilibili_video')
+        currentVideoPath = os.path.join(sys.path[0], 'video')
         if not os.path.exists(currentVideoPath):
             os.makedirs(currentVideoPath)
 
