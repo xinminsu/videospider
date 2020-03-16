@@ -51,6 +51,8 @@ class baidu():
             video_name = time.strftime('%Y%m%d-%H%M%S', time.localtime(time.time())) + ".mp4"
             if url.find("baidu") >= 0:
                 self.down_from_url(self.getVideoUrl(self.getHtml(url)), video_name)
+            elif url.find("iqiyi") >= 0:
+                self.down_from_url(self.getVideoUrl(self.getHtml(url)), video_name)
             elif url.find("bilibili") >= 0:
                 bilibili = bilibili()
                 start_time = time.time()
