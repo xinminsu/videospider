@@ -114,7 +114,7 @@ class bilibili():
     def down_video(self,video_list, title, start_url, page):
         num = 1
         print('[正在下载P{}段视频,请稍等...]:'.format(page) + title)
-        currentVideoPath = os.path.join(sys.path[0], 'bilibili_video', title)  # 当前目录作为下载目录
+        currentVideoPath = os.path.join(sys.path[0], 'video', title)  # 当前目录作为下载目录
         if not os.path.exists(currentVideoPath):
             os.makedirs(currentVideoPath)
         for i in video_list:
