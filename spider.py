@@ -62,6 +62,11 @@ class spider():
                                            stderr=subprocess.STDOUT,
                                            stdout=subprocess.PIPE,
                                            shell=True)
+                while True:
+                    output = process.stdout.readline().strip()
+                    print(output)
+                    if process.poll() is not None:
+                        break
 
     def dowmloadVideos(self,urls):
         currentVideoPath = os.path.join(sys.path[0], 'video')
@@ -73,16 +78,18 @@ class spider():
                 video_name = time.strftime('%Y%m%d-%H%M%S', time.localtime(time.time())) + ".mp4"
                 self.down_from_url(self.getVideoUrl(self.getHtml(url)), video_name)
             elif url.find("iqiyi") >= 0:
-                currentVideoPath = os.path.join(sys.path[0], 'video')
-                if not os.path.exists(currentVideoPath):
-                    os.makedirs(currentVideoPath)
-
                 scenedetect_cmd = ["python", "you-get.py", url, "-o", "video"]
 
                 process = subprocess.Popen(scenedetect_cmd,
                                            stderr=subprocess.STDOUT,
                                            stdout=subprocess.PIPE,
                                            shell=True)
+                while True:
+                    output = process.stdout.readline().strip()
+                    print(output)
+                    if process.poll() is not None:
+                        break
+
             elif url.find("bilibili") >= 0:
                 bilibili = bili.bilibili()
                 # 用户输入av号或者视频链接地址
