@@ -77,19 +77,6 @@ class spider():
             if url.find("baidu") >= 0:
                 video_name = time.strftime('%Y%m%d-%H%M%S', time.localtime(time.time())) + ".mp4"
                 self.down_from_url(self.getVideoUrl(self.getHtml(url)), video_name)
-            elif url.find("iqiyi") >= 0:
-                scenedetect_cmd = ["python", "you-get.py", url, "-o", "video"]
-
-                process = subprocess.Popen(scenedetect_cmd,
-                                           stderr=subprocess.STDOUT,
-                                           stdout=subprocess.PIPE,
-                                           shell=True)
-                while True:
-                    output = process.stdout.readline().strip()
-                    print(output)
-                    if process.poll() is not None:
-                        break
-
             elif url.find("bilibili") >= 0:
                 bilibili = bili.bilibili()
                 # 用户输入av号或者视频链接地址
@@ -160,6 +147,18 @@ class spider():
                 currentVideoPath = os.path.join(sys.path[0], 'video')  # 当前目录作为下载目录
                 if (sys.platform.startswith('win')):
                     os.startfile(currentVideoPath)
+            else:
+                scenedetect_cmd = ["python", "you-get.py", url, "-o", "video"]
+
+                process = subprocess.Popen(scenedetect_cmd,
+                                           stderr=subprocess.STDOUT,
+                                           stdout=subprocess.PIPE,
+                                           shell=True)
+                while True:
+                    output = process.stdout.readline().strip()
+                    print(output)
+                    if process.poll() is not None:
+                        break
 
     def down_from_url(self, url, dst):
         response = requests.get(url, stream=True)  # (1)
