@@ -68,6 +68,7 @@ class spider():
         if not os.path.exists(currentVideoPath):
             os.makedirs(currentVideoPath)
         for url in urls:
+            print('url:' + url)
             if url.find("baidu") >= 0:
                 video_name = time.strftime('%Y%m%d-%H%M%S', time.localtime(time.time())) + ".mp4"
                 self.down_from_url(self.getVideoUrl(self.getHtml(url)), video_name)
