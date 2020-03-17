@@ -1,8 +1,10 @@
 # videospider
 
-refer to https://github.com/Henryhaohao/Bilibili_video_download.git  and
-         
-         https://github.com/nnngu/BaiduImageDownload.git
+refer to https://github.com/soimort/you-get
+
+install:
+
+pip install -r requirement.txt
 
 #command
 
