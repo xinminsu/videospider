@@ -47,7 +47,7 @@ class spider():
             break
         return video_url
 
-    def dowmloadVideos(self,urls):
+    def dowmloadVideos0(self,urls):
         currentVideoPath = os.path.join(sys.path[0], 'video')
         if not os.path.exists(currentVideoPath):
             os.makedirs(currentVideoPath)
@@ -63,7 +63,7 @@ class spider():
                                            stdout=subprocess.PIPE,
                                            shell=True)
 
-    def dowmloadVideos0(self,urls):
+    def dowmloadVideos(self,urls):
 
         for url in urls:
             if url.find("baidu") >= 0:
