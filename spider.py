@@ -5,6 +5,7 @@ from requests import RequestException
 from tqdm import tqdm
 import requests, time, re
 import os, sys, threading
+import subprocess
 
 class spider():
     def __init__(self):
@@ -53,7 +54,16 @@ class spider():
                 video_name = time.strftime('%Y%m%d-%H%M%S', time.localtime(time.time())) + ".mp4"
                 self.down_from_url(self.getVideoUrl(self.getHtml(url)), video_name)
             elif url.find("iqiyi") >= 0:
-                print(url)
+                currentVideoPath = os.path.join(sys.path[0], 'video')
+                if not os.path.exists(currentVideoPath):
+                    os.makedirs(currentVideoPath)
+
+                scenedetect_cmd = ["python", "you-get.py", url, "-o", "video"]
+
+                process = subprocess.Popen(scenedetect_cmd,
+                                           stderr=subprocess.STDOUT,
+                                           stdout=subprocess.PIPE,
+                                           shell=True)
             elif url.find("bilibili") >= 0:
                 bilibili = bili.bilibili()
                 # 用户输入av号或者视频链接地址
