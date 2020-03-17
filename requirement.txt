@@ -1,9 +1,4 @@
-beautifulsoup4
 bs4
-common
-m3u8
-moviepy
 requests
-setuptools
-urllib3
-you-get        0.4.1410
+moviepy
+you-get
