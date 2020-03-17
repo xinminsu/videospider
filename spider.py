@@ -48,6 +48,22 @@ class spider():
         return video_url
 
     def dowmloadVideos(self,urls):
+        currentVideoPath = os.path.join(sys.path[0], 'video')
+        if not os.path.exists(currentVideoPath):
+            os.makedirs(currentVideoPath)
+        for url in urls:
+            if url.find("baidu") >= 0:
+                video_name = time.strftime('%Y%m%d-%H%M%S', time.localtime(time.time())) + ".mp4"
+                self.down_from_url(self.getVideoUrl(self.getHtml(url)), video_name)
+            else:
+                scenedetect_cmd = ["python", "you-get.py", url, "-o", "video"]
+
+                process = subprocess.Popen(scenedetect_cmd,
+                                           stderr=subprocess.STDOUT,
+                                           stdout=subprocess.PIPE,
+                                           shell=True)
+
+    def dowmloadVideos0(self,urls):
 
         for url in urls:
             if url.find("baidu") >= 0:
@@ -149,11 +165,8 @@ class spider():
 
         pbar = tqdm(total=file_size, initial=first_byte, unit='B', unit_scale=True, desc=dst)
         req = requests.get(url, headers=header, stream=True)
-        currentVideoPath = os.path.join(sys.path[0], 'video')
-        if not os.path.exists(currentVideoPath):
-            os.makedirs(currentVideoPath)
 
-        with open(os.path.join(currentVideoPath,dst), 'ab') as f:
+        with open(os.path.join(sys.path[0], 'video', dst), 'ab') as f:
             for chunk in req.iter_content(chunk_size=1024):
                 if chunk:
                     f.write(chunk)
