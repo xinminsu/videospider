@@ -64,7 +64,9 @@ class spider():
                                            shell=True)
 
     def dowmloadVideos(self,urls):
-
+        currentVideoPath = os.path.join(sys.path[0], 'video')
+        if not os.path.exists(currentVideoPath):
+            os.makedirs(currentVideoPath)
         for url in urls:
             if url.find("baidu") >= 0:
                 video_name = time.strftime('%Y%m%d-%H%M%S', time.localtime(time.time())) + ".mp4"
