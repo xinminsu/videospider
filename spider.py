@@ -47,7 +47,7 @@ class spider():
             break
         return video_url
 
-    def dowmloadVideos0(self,urls):
+    def dowmloadVideos(self,urls):
         currentVideoPath = os.path.join(sys.path[0], 'video')
         if not os.path.exists(currentVideoPath):
             os.makedirs(currentVideoPath)
@@ -55,6 +55,8 @@ class spider():
             if url.find("baidu") >= 0:
                 video_name = time.strftime('%Y%m%d-%H%M%S', time.localtime(time.time())) + ".mp4"
                 self.down_from_url(self.getVideoUrl(self.getHtml(url)), video_name)
+            elif url.find("bilibili") >= 0:
+                print("miss bilibili")
             else:
                 scenedetect_cmd = ["python", "you-get.py", url, "-o", "video"]
 
@@ -64,11 +66,11 @@ class spider():
                                            shell=True)
                 while True:
                     output = process.stdout.readline().strip()
-                    print(output)
+                    #print(output)
                     if process.poll() is not None:
                         break
 
-    def dowmloadVideos(self,urls):
+    def dowmloadVideos0(self,urls):
         currentVideoPath = os.path.join(sys.path[0], 'video')
         if not os.path.exists(currentVideoPath):
             os.makedirs(currentVideoPath)
