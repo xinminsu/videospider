@@ -19,7 +19,6 @@ class spider():
     def getHtml(self,url):
         try:
             response = requests.get(url=url, headers= self.getHtmlHeaders)
-            print(response.status_code)
             if response.status_code == 200:
                 return response.text
         except RequestException:
@@ -32,7 +31,8 @@ class spider():
 
         for div in bs.find_all('div', class_='video_small_intro'):
             for item in div.find_all("a"):
-                video_urls.append(item.get("href"))
+                video_urls.append({"title" : item.get_text() ,
+                                   "url" : item.get("href")})
 
         print(video_urls)
 
@@ -43,6 +43,7 @@ class spider():
 
         video_url =''
         for item in bs.find_all("video"):
+            print(f"item = {item}")
             video_url = item.get("src")
             break
         return video_url
@@ -52,13 +53,14 @@ class spider():
         if not os.path.exists(currentVideoPath):
             os.makedirs(currentVideoPath)
         for url in urls:
-            if url.find("baidu") >= 0:
-                video_name = time.strftime('%Y%m%d-%H%M%S', time.localtime(time.time())) + ".mp4"
-                self.down_from_url(self.getVideoUrl(self.getHtml(url)), video_name)
-            elif url.find("bilibili") >= 0:
-                print("miss bilibili")
+            if url["url"].find("baidu") >= 0:
+                vname = re.sub(r'[,\/:*?"<>|!“”]+', '', url["title"])
+                video_name = vname + ".mp4"
+                self.down_from_url(self.getVideoUrl(self.getHtml(url["url"])), video_name)
+            elif url["url"].find("bilibili") >= 0:
+                continue
             else:
-                scenedetect_cmd = ["python", "you-get.py", url, "-o", "video"]
+                scenedetect_cmd = ["python", "you-get.py", url["url"], "-o", "video"]
 
                 process = subprocess.Popen(scenedetect_cmd,
                                            stderr=subprocess.STDOUT,
