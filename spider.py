@@ -56,7 +56,8 @@ class spider():
             if url["url"].find("baidu") >= 0:
                 vname = re.sub(r'[,\/:*?"<>|!“”]+', '', url["title"])
                 video_name = vname + ".mp4"
-                self.down_from_url(self.getVideoUrl(self.getHtml(url["url"])), video_name)
+                if not os.path.exists(os.path.join(currentVideoPath,video_name)):
+                    self.down_from_url(self.getVideoUrl(self.getHtml(url["url"])), video_name)
             elif url["url"].find("bilibili") >= 0:
                 continue
             else:
